@@ -846,6 +846,85 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .quiz-mascot {
+      position: fixed;
+      bottom: 140px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    
+    .quiz-mascot:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(212, 168, 67, 0.3);
+    }
+    
+    .quiz-mascot.hidden {
+      display: none;
+    }
+    
+    .hint-bubble {
+      position: fixed;
+      bottom: 200px;
+      left: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      max-width: 280px;
+      box-shadow: var(--shadow);
+      z-index: 101;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .hint-bubble.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    
+    .hint-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--card-bg);
+    }
+    
+    .hint-bubble .hint-label {
+      color: var(--accent-gold);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    
+    .hint-bubble .hint-text {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +966,15 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="quiz-mascot hidden" id="quiz-mascot">
+  ⚽
+</div>
+
+<div class="hint-bubble" id="hint-bubble">
+  <div class="hint-label">Hint</div>
+  <div class="hint-text" id="hint-text">Loading hint...</div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1581,6 +1669,101 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+// Quiz mascot functionality
+let mascotVisible = false;
+let hintBubbleVisible = false;
+
+function initMascot() {
+  const mascot = document.getElementById('quiz-mascot');
+  const hintBubble = document.getElementById('hint-bubble');
+  
+  if (!mascot || !hintBubble) return;
+  
+  // Toggle hint bubble on mascot click
+  mascot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleHintBubble();
+  });
+  
+  // Close bubble when clicking elsewhere
+  document.addEventListener('click', (e) => {
+    if (hintBubbleVisible && !hintBubble.contains(e.target) && !mascot.contains(e.target)) {
+      hideHintBubble();
+    }
+  });
+}
+
+function showMascot(question) {
+  const mascot = document.getElementById('quiz-mascot');
+  if (!mascot) return;
+  
+  // Only show if question has a tip
+  if (question && question.tip && question.tip.trim()) {
+    mascot.classList.remove('hidden');
+    mascotVisible = true;
+    updateHintText(question.tip);
+  }
+else {
+    hideMascot();
+  }
+}
+
+function hideMascot() {
+  const mascot = document.getElementById('quiz-mascot');
+  if (!mascot) return;
+  
+  mascot.classList.add('hidden');
+  mascotVisible = false;
+  hideHintBubble();
+}
+
+function toggleHintBubble() {
+  if (hintBubbleVisible) {
+    hideHintBubble();
+  }
+else {
+    showHintBubble();
+  }
+}
+
+function showHintBubble() {
+  const hintBubble = document.getElementById('hint-bubble');
+  if (!hintBubble) return;
+  
+  hintBubble.classList.add('show');
+  hintBubbleVisible = true;
+}
+
+function hideHintBubble() {
+  const hintBubble = document.getElementById('hint-bubble');
+  if (!hintBubble) return;
+  
+  hintBubble.classList.remove('show');
+  hintBubbleVisible = false;
+}
+
+function updateHintText(tip) {
+  const hintText = document.getElementById('hint-text');
+  if (hintText) {
+    hintText.textContent = tip.replace('🐾', '');
+  }
+}
+
+// Modify existing renderQuizQuestion to show/hide mascot
+const originalRenderQuizQuestion = renderQuizQuestion;
+renderQuizQuestion = function() {
+  originalRenderQuizQuestion.call(this);
+  
+  const question = APP.quizQuestions[quizIndex];
+  if (question) {
+    showMascot(question);
+  }
+};
+
+// Initialize mascot
+initMascot();
 </script>
 
 </body>
