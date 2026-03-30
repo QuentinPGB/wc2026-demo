@@ -849,6 +849,71 @@
   
     /* Auto-generated */
     .countdown-container { background: linear-gradient(135deg, #16161f 0%, #1a1a24 100%); border: 1px solid #2a2a35; border-radius: 12px; padding: 2rem; margin: 2rem 0; text-align: center; box-shadow: 0 4px 20px rgba(212, 168, 67, 0.1); } .countdown-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; color: #d4a843; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; } .countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 1rem; } .countdown-item { background: rgba(212, 168, 67, 0.1); border: 1px solid rgba(212, 168, 67, 0.3); border-radius: 8px; padding: 1rem; } .countdown-number { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 2.5rem; color: #ffffff; display: block; line-height: 1; } .countdown-label { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.875rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.5rem; } .countdown-match-info { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a35; color: #aaa; font-size: 0.9rem; } @media (max-width: 768px) { .countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } .countdown-number { font-size: 2rem; } }
+  
+    /* Auto-generated */
+    .countdown-container {
+          background: linear-gradient(135deg, #16161f 0%, #1a1a24 100%);
+          border: 1px solid #2a2a35;
+          border-radius: 12px;
+          padding: 2rem;
+          margin: 2rem 0;
+          text-align: center;
+          box-shadow: 0 4px 20px rgba(212, 168, 67, 0.1);
+          }
+        .countdown-title {
+          font-family: 'Inter', sans-serif;
+          font-weight: 700;
+          font-size: 1.5rem;
+          color: #d4a843;
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          }
+        .countdown-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
+          margin-top: 1rem;
+          }
+        .countdown-item {
+          background: rgba(212, 168, 67, 0.1);
+          border: 1px solid rgba(212, 168, 67, 0.3);
+          border-radius: 8px;
+          padding: 1rem;
+          }
+        .countdown-number {
+          font-family: 'Inter', sans-serif;
+          font-weight: 900;
+          font-size: 2.5rem;
+          color: #ffffff;
+          display: block;
+          line-height: 1;
+          }
+        .countdown-label {
+          font-family: 'Inter', sans-serif;
+          font-weight: 500;
+          font-size: 0.875rem;
+          color: #888;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-top: 0.5rem;
+          }
+        .countdown-match-info {
+          margin-top: 1rem;
+          padding-top: 1rem;
+          border-top: 1px solid #2a2a35;
+          color: #aaa;
+          font-size: 0.9rem;
+          }
+        @media (max-width: 768px) {
+          .countdown-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+          }
+        .countdown-number {
+          font-size: 2rem;
+          }
+        }
   </style>
 </head>
 <body>
@@ -892,6 +957,31 @@
     <div id="matches-container"></div>
 
     <!-- Insert after the .hero-section div in screen-home --> <div class="countdown-container"> <h3 class="countdown-title">Next World Cup Match</h3> <div class="countdown-grid"> <div class="countdown-item"> <span class="countdown-number" id="countdown-days">00</span> <span class="countdown-label">Days</span> </div> <div class="countdown-item"> <span class="countdown-number" id="countdown-hours">00</span> <span class="countdown-label">Hours</span> </div> <div class="countdown-item"> <span class="countdown-number" id="countdown-minutes">00</span> <span class="countdown-label">Minutes</span> </div> <div class="countdown-item"> <span class="countdown-number" id="countdown-seconds">00</span> <span class="countdown-label">Seconds</span> </div> </div> <div class="countdown-match-info" id="countdown-match-info"> <strong>Argentina vs Brazil</strong> • December 15, 2024 at 3:00 PM GMT </div> </div>
+
+    <!-- Insert after the .hero-section div in screen-home -->
+    <div class="countdown-container">
+    <h3 class="countdown-title">Next World Cup Match</h3>
+    <div class="countdown-grid">
+    <div class="countdown-item">
+    <span class="countdown-number" id="countdown-days">00</span>
+    <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-item">
+    <span class="countdown-number" id="countdown-hours">00</span>
+    <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-item">
+    <span class="countdown-number" id="countdown-minutes">00</span>
+    <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-item">
+    <span class="countdown-number" id="countdown-seconds">00</span>
+    <span class="countdown-label">Seconds</span>
+    </div>
+    </div>
+    <div class="countdown-match-info" id="countdown-match-info">
+    <strong>Argentina vs Brazil</strong> • December 15, 2024 at 3:00 PM GMT </div>
+    </div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1589,6 +1679,35 @@ init();
 
 // Auto-generated
 // Countdown Timer Functionality function initCountdown() { // Set target date for next World Cup match (example date) const targetDate = new Date('2024-12-15T15:00:00Z'); const countdownInterval = setInterval(() => { const now = new Date().getTime(); const distance = targetDate.getTime() - now; if (distance < 0) { clearInterval(countdownInterval); document.getElementById('countdown-days').textContent = '00'; document.getElementById('countdown-hours').textContent = '00'; document.getElementById('countdown-minutes').textContent = '00'; document.getElementById('countdown-seconds').textContent = '00'; document.getElementById('countdown-match-info').innerHTML = '<strong>Match Starting Soon!</strong>'; return; } const days = Math.floor(distance / (1000 * 60 * 60 * 24)); const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((distance % (1000 * 60)) / 1000); document.getElementById('countdown-days').textContent = String(days).padStart(2, '0'); document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0'); document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0'); document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0'); }, 1000); } // Initialize countdown when page loads if (typeof window !== 'undefined') { document.addEventListener('DOMContentLoaded', initCountdown); }
+
+// Auto-generated
+// Countdown Timer Functionality function initCountdown() {
+  // Set target date for next World Cup match (example date) const targetDate = new Date('2024-12-15T15:00:00Z');
+const countdownInterval = setInterval(() => {
+  const now = new Date().getTime();
+const distance = targetDate.getTime() - now;
+if (distance < 0) {
+  clearInterval(countdownInterval);
+document.getElementById('countdown-days').textContent = '00';
+document.getElementById('countdown-hours').textContent = '00';
+document.getElementById('countdown-minutes').textContent = '00';
+document.getElementById('countdown-seconds').textContent = '00';
+document.getElementById('countdown-match-info').innerHTML = '<strong>Match Starting Soon!</strong>';
+return;
+}
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+}, 1000);
+}
+// Initialize countdown when page loads if (typeof window !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initCountdown);
+}
 </script>
 
 </body>
