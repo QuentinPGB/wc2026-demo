@@ -899,6 +899,9 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+  
+    /* Auto-generated */
+    /* Countdown already exists - no changes needed */
   </style>
 </head>
 <body>
@@ -1685,6 +1688,20 @@ function updateHomeCountdown() {
 function startHomeCountdown() {
   setInterval(updateHomeCountdown, 1000);
   updateHomeCountdown();
+}
+
+// Auto-generated
+// Update existing init function to start countdown
+function init() {
+  renderMatches();
+  renderLbPreview();
+  renderQuizMatchesPreview();
+  renderLeaderboard();
+  renderBadges();
+  renderActivity();
+  updateCountdown();
+  startHomeCountdown();
+// Add this line to existing init function
 }
 </script>
 
