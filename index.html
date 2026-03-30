@@ -846,6 +846,90 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .quiz-mascot {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+    
+    .quiz-mascot:hover {
+      transform: scale(1.1);
+    }
+    
+    .quiz-mascot.pulse {
+      animation: mascotPulse 2s infinite;
+    }
+    
+    @keyframes mascotPulse {
+      0%, 100% {
+          transform: scale(1);
+          }
+      50% {
+          transform: scale(1.05);
+          }
+    }
+    
+    .hint-bubble {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      max-width: 250px;
+      z-index: 101;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+    
+    .hint-bubble.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hint-bubble-label {
+      font-size: 11px;
+      color: var(--accent-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    
+    .hint-bubble-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    
+    .hint-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 20px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--card-bg);
+    }
   </style>
 </head>
 <body>
@@ -887,6 +971,17 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <!-- Quiz Helper Mascot -->
+<div class="quiz-mascot" id="quizMascot" onclick="toggleHint()">
+  ⚽
+</div>
+
+<!-- Hint Bubble -->
+<div class="hint-bubble" id="hintBubble">
+  <div class="hint-bubble-label">Hint</div>
+  <div class="hint-bubble-text" id="hintText">Think about recent World Cup history...</div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1581,6 +1676,73 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+// Quiz hints data - match existing quiz questions
+const quizHints = [
+  "Morocco reached the 2022 semi-finals — first African team ever. Don't sleep on them! 🐾",
+  "Low-scoring games are most common in group stages — think 1-0 or 2-1! 🐾", 
+  "MetLife Stadium in East Rutherford, NJ — right outside New York City! 🐾",
+  "Japan shocked Germany 2-1 in 2022. Both teams know the stakes — expect intensity! 🐾",
+  "Average World Cup match has 2.5 goals. Three matches = expect around 7-8 total! 🐾"
+];
+
+let currentHintIndex = 0;
+let hintVisible = false;
+
+// Toggle hint bubble
+function toggleHint() {
+  const bubble = document.getElementById('hintBubble');
+  const mascot = document.getElementById('quizMascot');
+  
+  if (hintVisible) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+else {
+    bubble.classList.add('show');
+    mascot.classList.add('pulse');
+    hintVisible = true;
+  }
+}
+
+// Close hint when clicking elsewhere
+document.addEventListener('click', function(e) {
+  const mascot = document.getElementById('quizMascot');
+  const bubble = document.getElementById('hintBubble');
+  
+  if (hintVisible && !mascot.contains(e.target) && !bubble.contains(e.target)) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+});
+
+// Update hint text for current question
+function updateHintForQuestion() {
+  const hintText = document.getElementById('hintText');
+  
+  if (hintText && quizHints[quizIndex]) {
+    hintText.textContent = quizHints[quizIndex];
+  }
+  
+  // Close any open hint when question changes
+  const bubble = document.getElementById('hintBubble');
+  const mascot = document.getElementById('quizMascot');
+  if (hintVisible) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+}
+
+// Hook into existing renderQuizQuestion function
+const originalRenderQuizQuestion = renderQuizQuestion;
+renderQuizQuestion = function() {
+  originalRenderQuizQuestion();
+  updateHintForQuestion();
+};
 </script>
 
 </body>
