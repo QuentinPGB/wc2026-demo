@@ -940,6 +940,72 @@
         bottom: 60px;
       }
     }
+  
+    /* Auto-generated */
+    .quiz-mascot {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          width: 50px;
+          height: 50px;
+          background: linear-gradient(135deg, #d4a843, #f4c869);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 1000;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          font-size: 24px;
+          }
+        .quiz-mascot:hover {
+          transform: scale(1.1);
+          box-shadow: 0 4px 20px rgba(212, 168, 67, 0.3);
+          }
+        .hint-bubble {
+          position: fixed;
+          bottom: 80px;
+          left: 20px;
+          background: #16161f;
+          border: 1px solid #d4a843;
+          border-radius: 12px;
+          padding: 12px 16px;
+          max-width: 200px;
+          z-index: 1001;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+          pointer-events: none;
+          }
+        .hint-bubble.show {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+          }
+        .hint-bubble::before {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 20px;
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid #d4a843;
+          }
+        .hint-label {
+          color: #d4a843;
+          font-weight: 600;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 4px;
+          }
+        .hint-text {
+          color: #ffffff;
+          font-size: 14px;
+          line-height: 1.4;
+          }
   </style>
 </head>
 <body>
@@ -992,6 +1058,13 @@
     <div class="hint-text" id="hint-text">Tap me for a helpful hint!</div>
   </div>
 </div>
+
+    <!-- Insert inside the quiz screen div, after the options -->
+    <div class="quiz-mascot" id="quiz-mascot">⚽</div>
+    <div class="hint-bubble" id="hint-bubble">
+    <div class="hint-label">Hint</div>
+    <div class="hint-text" id="hint-text">Think about recent tournaments...</div>
+    </div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1736,6 +1809,68 @@ document.addEventListener('click', function(event) {
 // Add this line to the nextQuestion() function after currentQuestionIndex++:
 // if (hintBubbleOpen) toggleHint();
 // Close any open hint
+
+// Auto-generated
+const quizHints = [ 'Think about which country hosted the most recent World Cup...', 'Look at the flag colors and geographical regions carefully', 'Consider the timeline of when this tournament took place', 'Think about legendary players from this era', 'Pay attention to the specific year mentioned in the question' ];
+let currentQuestionIndex = 0;
+let hintVisible = false;
+function initQuizMascot() {
+  const mascot = document.getElementById('quiz-mascot');
+const hintBubble = document.getElementById('hint-bubble');
+const hintText = document.getElementById('hint-text');
+if (!mascot || !hintBubble || !hintText) return;
+mascot.addEventListener('click', toggleHint);
+document.addEventListener('click', (e) => {
+  if (!mascot.contains(e.target) && !hintBubble.contains(e.target) && hintVisible) {
+  hideHint();
+}
+});
+updateHintForQuestion(0);
+}
+function toggleHint() {
+  if (hintVisible) {
+  hideHint();
+}
+else {
+  showHint();
+}
+}
+function showHint() {
+  const hintBubble = document.getElementById('hint-bubble');
+const hintText = document.getElementById('hint-text');
+if (!hintBubble || !hintText) return;
+hintText.textContent = quizHints[currentQuestionIndex] || 'Think carefully about this question...';
+hintBubble.classList.add('show');
+hintVisible = true;
+}
+function hideHint() {
+  const hintBubble = document.getElementById('hint-bubble');
+if (!hintBubble) return;
+hintBubble.classList.remove('show');
+hintVisible = false;
+}
+function updateHintForQuestion(questionIndex) {
+  currentQuestionIndex = questionIndex;
+if (hintVisible) {
+  showHint();
+}
+}
+function showMascot() {
+  const mascot = document.getElementById('quiz-mascot');
+if (mascot) {
+  mascot.style.display = 'flex';
+}
+}
+function hideMascot() {
+  const mascot = document.getElementById('quiz-mascot');
+const hintBubble = document.getElementById('hint-bubble');
+if (mascot) mascot.style.display = 'none';
+if (hintBubble) hintBubble.classList.remove('show');
+hintVisible = false;
+}
+if (typeof window !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initQuizMascot);
+}
 </script>
 
 </body>
