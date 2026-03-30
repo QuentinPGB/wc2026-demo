@@ -846,6 +846,50 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .match-countdown {
+      background: linear-gradient(135deg, var(--accent-gold), #ff6b35);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 0 0 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(212,168,67,0.3);
+    }
+    .countdown-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 12px 8px;
+      backdrop-filter: blur(10px);
+    }
+    .countdown-value {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .countdown-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +931,28 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="match-countdown">
+  <div class="countdown-title">Next World Cup Match</div>
+  <div class="countdown-grid">
+    <div class="countdown-item">
+      <span class="countdown-value" id="countdown-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" id="countdown-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" id="countdown-minutes">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" id="countdown-seconds">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1570,6 +1636,41 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+function updateMatchCountdown() {
+  const nextMatchDate = new Date('2026-06-14T18:00:00Z');
+  const now = new Date();
+  const timeDiff = nextMatchDate.getTime() - now.getTime();
+  
+  const daysEl = document.getElementById('countdown-days');
+  const hoursEl = document.getElementById('countdown-hours');
+  const minutesEl = document.getElementById('countdown-minutes');
+  const secondsEl = document.getElementById('countdown-seconds');
+  
+  if (!daysEl) return;
+  
+  if (timeDiff <= 0) {
+    daysEl.textContent = '00';
+    hoursEl.textContent = '00';
+    minutesEl.textContent = '00';
+    secondsEl.textContent = '00';
+    return;
+  }
+  
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+  daysEl.textContent = days.toString().padStart(2, '0');
+  hoursEl.textContent = hours.toString().padStart(2, '0');
+  minutesEl.textContent = minutes.toString().padStart(2, '0');
+  secondsEl.textContent = seconds.toString().padStart(2, '0');
+}
+
+// Add to init() function
+setInterval(updateMatchCountdown, 1000);
 </script>
 
 </body>
