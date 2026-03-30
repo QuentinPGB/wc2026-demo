@@ -846,6 +846,64 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .home-countdown {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #e8c65a 100%);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    
+    .home-countdown-title {
+      color: var(--bg);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .home-countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .home-countdown-unit {
+      background: rgba(255,255,255,0.2);
+      border-radius: var(--radius-xs);
+      padding: 8px 10px;
+      min-width: 56px;
+    }
+    
+    .home-countdown-number {
+      color: var(--bg);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+      display: block;
+    }
+    
+    .home-countdown-label {
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+    
+    .home-countdown-match {
+      color: var(--bg);
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +945,29 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="home-countdown">
+  <div class="home-countdown-title">Next Match In</div>
+  <div class="home-countdown-display" id="home-countdown-display">
+    <div class="home-countdown-unit">
+      <span class="home-countdown-number" id="home-countdown-days">00</span>
+      <span class="home-countdown-label">Days</span>
+    </div>
+    <div class="home-countdown-unit">
+      <span class="home-countdown-number" id="home-countdown-hours">00</span>
+      <span class="home-countdown-label">Hours</span>
+    </div>
+    <div class="home-countdown-unit">
+      <span class="home-countdown-number" id="home-countdown-minutes">00</span>
+      <span class="home-countdown-label">Min</span>
+    </div>
+    <div class="home-countdown-unit">
+      <span class="home-countdown-number" id="home-countdown-seconds">00</span>
+      <span class="home-countdown-label">Sec</span>
+    </div>
+  </div>
+  <div class="home-countdown-match" id="home-countdown-match">Brazil vs Morocco</div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1570,6 +1651,84 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+function updateHomeCountdown() {
+  const now = new Date();
+  const today = now.toDateString();
+  const nextMatch = APP.todayMatches.find(m => !m.predicted) || APP.todayMatches[0];
+  
+  if (!nextMatch) {
+    const display = document.getElementById('home-countdown-display');
+    if (display) {
+      display.innerHTML = '<div class="home-countdown-unit"><span class="home-countdown-number">--</span><span class="home-countdown-label">No matches</span></div>';
+    }
+    return;
+  }
+  
+  const matchDateTime = new Date(today + ' ' + nextMatch.time);
+  
+  if (matchDateTime <= now) {
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    matchDateTime.setDate(tomorrow.getDate());
+  }
+  
+  const timeDiff = matchDateTime.getTime() - now.getTime();
+  
+  if (timeDiff <= 0) {
+    const display = document.getElementById('home-countdown-display');
+    if (display) {
+      display.innerHTML = '<div class="home-countdown-unit"><span class="home-countdown-number">00</span><span class="home-countdown-label">Live Now</span></div>';
+    }
+    return;
+  }
+  
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+  const daysEl = document.getElementById('home-countdown-days');
+  const hoursEl = document.getElementById('home-countdown-hours');
+  const minutesEl = document.getElementById('home-countdown-minutes');
+  const secondsEl = document.getElementById('home-countdown-seconds');
+  const matchEl = document.getElementById('home-countdown-match');
+  
+  if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+  if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+  if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+  if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+  
+  if (matchEl) {
+    const homeTeam = APP.teams[nextMatch.home];
+    const awayTeam = APP.teams[nextMatch.away];
+    matchEl.textContent = `${homeTeam ? homeTeam.flag : ''}
+${nextMatch.home}
+vs ${nextMatch.away}
+${awayTeam ? awayTeam.flag : ''}`;
+  }
+}
+
+// Update the existing updateCountdown function to use the new home countdown
+const originalUpdateCountdown = updateCountdown;
+updateCountdown = function() {
+  // Keep quiz countdown functionality
+  originalUpdateCountdown();
+  // Add home countdown
+  updateHomeCountdown();
+};
+
+// Initialize home countdown in the existing init function
+const originalInit = init;
+init = function() {
+  originalInit();
+  updateHomeCountdown();
+  if (typeof homeCountdownInterval !== 'undefined') {
+    clearInterval(homeCountdownInterval);
+  }
+  window.homeCountdownInterval = setInterval(updateHomeCountdown, 1000);
+};
 </script>
 
 </body>
