@@ -1859,6 +1859,85 @@ init = function() {
   setInterval(updateMatchCountdown, 1000);
   updateMatchCountdown();
 };
+
+// Auto-generated
+// Enhanced quiz mascot functionality
+let mascotVisible = false;
+let hintBubbleVisible = false;
+
+function initQuizMascot() {
+  const mascot = document.getElementById('quizMascot');
+  const hintBubble = document.getElementById('hintBubble');
+  
+  if (!mascot || !hintBubble) return;
+  
+  // Close bubble when clicking elsewhere (already exists)
+  // Hide mascot when not in quiz-active screen
+  hideMascotOnScreenChange();
+}
+
+function showQuizMascot(question) {
+  const mascot = document.getElementById('quizMascot');
+  if (!mascot) return;
+  
+  // Only show during quiz-active screen and if question has a tip
+  if (currentScreen === 'quiz-active' && question && question.tip && question.tip.trim()) {
+    mascot.style.display = 'flex';
+    mascot.classList.add('pulse');
+    mascotVisible = true;
+    updateQuizHintText(question.tip);
+  }
+else {
+    hideQuizMascot();
+  }
+}
+
+function hideQuizMascot() {
+  const mascot = document.getElementById('quizMascot');
+  const hintBubble = document.getElementById('hintBubble');
+  if (!mascot) return;
+  
+  mascot.style.display = 'none';
+  mascot.classList.remove('pulse');
+  mascotVisible = false;
+  if (hintBubble) {
+    hintBubble.classList.remove('show');
+    hintBubbleVisible = false;
+  }
+}
+
+function updateQuizHintText(tip) {
+  const hintText = document.getElementById('hintText');
+  if (hintText) {
+    hintText.textContent = tip;
+  }
+}
+
+function hideMascotOnScreenChange() {
+  // Hide mascot when leaving quiz-active screen
+  const originalNavigateTo = navigateTo;
+  navigateTo = function(screenId) {
+    if (screenId !== 'quiz-active') {
+      hideQuizMascot();
+    }
+    originalNavigateTo(screenId);
+  };
+}
+
+// Hook into existing renderQuizQuestion function
+const originalRenderQuizQuestion2 = renderQuizQuestion;
+renderQuizQuestion = function() {
+  originalRenderQuizQuestion2();
+  const currentQuestion = APP.quizQuestions[quizIndex];
+  showQuizMascot(currentQuestion);
+};
+
+// Initialize enhanced mascot on page load
+const originalInit2 = init;
+init = function() {
+  originalInit2();
+  initQuizMascot();
+};
 </script>
 
 </body>
