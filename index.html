@@ -846,6 +846,57 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .home-countdown {
+      background: linear-gradient(135deg, var(--accent-gold), #e8c65a);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 0 0 24px 0;
+      text-align: center;
+    }
+    
+    .countdown-title {
+      color: var(--bg);
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .countdown-number {
+      background: var(--bg);
+      color: var(--accent-gold);
+      font-weight: 800;
+      font-size: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+    }
+    
+    .countdown-label {
+      color: var(--bg);
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +938,28 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="home-countdown">
+  <div class="countdown-title">Next Match Starts In</div>
+  <div class="countdown-display">
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-days">00</div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-hours">00</div>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-mins">00</div>
+      <div class="countdown-label">Mins</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-secs">00</div>
+      <div class="countdown-label">Secs</div>
+    </div>
+  </div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1570,6 +1643,55 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+function updateHomeCountdown() {
+  const nextMatch = APP.todayMatches.find(match => !match.predicted) || APP.todayMatches[0];
+  if (!nextMatch) return;
+  
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const matchTime = nextMatch.time.split(':');
+  const matchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), parseInt(matchTime[0]), parseInt(matchTime[1]));
+  
+  if (matchDate < now) {
+    matchDate.setDate(matchDate.getDate() + 1);
+  }
+  
+  const diff = matchDate - now;
+  
+  if (diff <= 0) {
+    document.getElementById('countdown-days').textContent = '00';
+    document.getElementById('countdown-hours').textContent = '00';
+    document.getElementById('countdown-mins').textContent = '00';
+    document.getElementById('countdown-secs').textContent = '00';
+    return;
+  }
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  
+  document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('countdown-mins').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('countdown-secs').textContent = seconds.toString().padStart(2, '0');
+}
+
+// Replace the existing updateCountdown function in init()
+function init() {
+  renderMatches();
+  renderLbPreview();
+  renderQuizMatchesPreview();
+  renderLeaderboard();
+  renderBadges();
+  renderActivity();
+  
+  // Start home countdown
+  setInterval(updateHomeCountdown, 1000);
+  updateHomeCountdown();
+}
 </script>
 
 </body>
