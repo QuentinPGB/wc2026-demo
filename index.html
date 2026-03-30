@@ -846,6 +846,50 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .countdown-container {
+      background: linear-gradient(135deg, var(--accent-gold), #e8c65a);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 4px 12px rgba(212,168,67,0.2);
+    }
+    .countdown-title {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      color: #000;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .countdown-unit {
+      background: rgba(0,0,0,0.1);
+      border-radius: var(--radius-xs);
+      padding: 8px 12px;
+      text-align: center;
+      min-width: 60px;
+    }
+    .countdown-value {
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 20px;
+      color: #000;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 10px;
+      color: rgba(0,0,0,0.7);
+      font-weight: 600;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +931,28 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="countdown-container">
+  <div class="countdown-title">Next Match Kickoff</div>
+  <div class="countdown-display">
+    <div class="countdown-unit">
+      <div class="countdown-value" id="countdown-days">0</div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-value" id="countdown-hours">0</div>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-value" id="countdown-minutes">0</div>
+      <div class="countdown-label">Mins</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-value" id="countdown-seconds">0</div>
+      <div class="countdown-label">Secs</div>
+    </div>
+  </div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1570,6 +1636,60 @@ function init() {
 }
 
 init();
+
+// Auto-generated
+// Replace the existing updateCountdown function
+function updateCountdown() {
+  const nextMatch = APP.todayMatches.find(match => !match.predicted) || APP.todayMatches[0];
+  if (!nextMatch) return;
+
+  const now = new Date();
+  const today = new Date();
+  const matchTime = nextMatch.time.split(':');
+  today.setHours(parseInt(matchTime[0]), parseInt(matchTime[1]), 0, 0);
+
+  if (today <= now) {
+    today.setDate(today.getDate() + 1);
+  }
+
+  const timeDiff = today.getTime() - now.getTime();
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+  const daysEl = document.getElementById('countdown-days');
+  const hoursEl = document.getElementById('countdown-hours');
+  const minutesEl = document.getElementById('countdown-minutes');
+  const secondsEl = document.getElementById('countdown-seconds');
+
+  if (daysEl) daysEl.textContent = days;
+  if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+  if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+  if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+
+  // Also update quiz countdown if it exists
+  const el = document.getElementById('quiz-countdown');
+  if (el) {
+    let mins = Math.floor(timeDiff / (1000 * 60));
+    if (mins < 0) mins = 0;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    el.textContent = `${h}h ${String(m).padStart(2, '0')}m`;
+  }
+}
+
+// Update init function to start the interval
+function init() {
+  renderMatches();
+  renderLbPreview();
+  renderQuizMatchesPreview();
+  renderLeaderboard();
+  renderBadges();
+  renderActivity();
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
 </script>
 
 </body>
