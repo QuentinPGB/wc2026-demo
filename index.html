@@ -1564,18 +1564,7 @@ function renderQuizQuestion() {
     `;
   }
 
-  // Expert tip
-  if (q.tip) {
-    html += `
-      <div class="qa-tip">
-        <span class="qa-tip-icon">💡</span>
-        <div>
-          <div class="qa-tip-label">Expert Tip</div>
-          <div class="qa-tip-text">${q.tip}</div>
-        </div>
-      </div>
-    `;
-  }
+  // Tip data is available in q.tip but not rendered — ready for mascot implementation via API
 
   body.innerHTML = html;
   body.scrollTop = 0;
