@@ -1743,6 +1743,73 @@ renderQuizQuestion = function() {
   originalRenderQuizQuestion();
   updateHintForQuestion();
 };
+
+// Auto-generated
+// Quiz hints data - match existing quiz questions
+const quizHints = [
+  "Morocco reached the 2022 semi-finals — first African team ever. Don't sleep on them! 🐾",
+  "Low-scoring games are most common in group stages — think 1-0 or 2-1! 🐾", 
+  "MetLife Stadium in East Rutherford, NJ — right outside New York City! 🐾",
+  "Japan shocked Germany 2-1 in 2022. Both teams know the stakes — expect intensity! 🐾",
+  "Average World Cup match has 2.5 goals. Three matches = expect around 7-8 total! 🐾"
+];
+
+let currentHintIndex = 0;
+let hintVisible = false;
+
+// Toggle hint bubble
+function toggleHint() {
+  const bubble = document.getElementById('hintBubble');
+  const mascot = document.getElementById('quizMascot');
+  
+  if (hintVisible) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+else {
+    bubble.classList.add('show');
+    mascot.classList.add('pulse');
+    hintVisible = true;
+  }
+}
+
+// Close hint when clicking elsewhere
+document.addEventListener('click', function(e) {
+  const mascot = document.getElementById('quizMascot');
+  const bubble = document.getElementById('hintBubble');
+  
+  if (hintVisible && !mascot.contains(e.target) && !bubble.contains(e.target)) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+});
+
+// Update hint text for current question
+function updateHintForQuestion() {
+  const hintText = document.getElementById('hintText');
+  
+  if (hintText && quizHints[quizIndex]) {
+    hintText.textContent = quizHints[quizIndex];
+  }
+  
+  // Close any open hint when question changes
+  const bubble = document.getElementById('hintBubble');
+  const mascot = document.getElementById('quizMascot');
+  if (hintVisible) {
+    bubble.classList.remove('show');
+    mascot.classList.remove('pulse');
+    hintVisible = false;
+  }
+}
+
+// Hook into existing renderQuizQuestion function
+const originalRenderQuizQuestion = renderQuizQuestion;
+renderQuizQuestion = function() {
+  originalRenderQuizQuestion();
+  updateHintForQuestion();
+};
 </script>
 
 </body>
