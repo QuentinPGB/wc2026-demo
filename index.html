@@ -930,6 +930,57 @@
       border-right: 8px solid transparent;
       border-top: 8px solid var(--card-bg);
     }
+  
+    /* Auto-generated */
+    .match-countdown {
+      background: linear-gradient(135deg, var(--accent-gold), #e8c65a);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 16px 0;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(212,168,67, 0.2);
+    }
+    
+    .countdown-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--bg);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    
+    .countdown-unit {
+      background: rgba(16, 22, 31, 0.9);
+      border-radius: var(--radius-sm);
+      padding: 12px 8px;
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .countdown-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    
+    .countdown-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -981,6 +1032,28 @@
 <div class="hint-bubble" id="hintBubble">
   <div class="hint-bubble-label">Hint</div>
   <div class="hint-bubble-text" id="hintText">Think about recent World Cup history...</div>
+</div>
+
+    <div class="match-countdown">
+  <div class="countdown-title">Next World Cup Match</div>
+  <div class="countdown-grid">
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-days">00</div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-hours">00</div>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-minutes">00</div>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="countdown-seconds">00</div>
+      <div class="countdown-label">Seconds</div>
+    </div>
+  </div>
 </div>
 
     <!-- Quick Stats -->
@@ -1742,6 +1815,60 @@ const originalRenderQuizQuestion = renderQuizQuestion;
 renderQuizQuestion = function() {
   originalRenderQuizQuestion();
   updateHintForQuestion();
+};
+
+// Auto-generated
+function updateMatchCountdown() {
+  // Use first match from today's matches for more realistic countdown
+  const nextMatchTime = APP.todayMatches[0].time;
+// "14:00"
+  const today = new Date();
+  const nextMatchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 0, 0);
+// 14:00 today
+  
+  // If match time has passed today, show countdown to tomorrow's first match
+  if (nextMatchDate < new Date()) {
+    nextMatchDate.setDate(nextMatchDate.getDate() + 1);
+  }
+  
+  const now = new Date();
+  const timeDiff = nextMatchDate.getTime() - now.getTime();
+  
+  if (timeDiff > 0) {
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+    
+    if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+else {
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+    
+    if (daysEl) daysEl.textContent = '00';
+    if (hoursEl) hoursEl.textContent = '00';
+    if (minutesEl) minutesEl.textContent = '00';
+    if (secondsEl) secondsEl.textContent = '00';
+  }
+}
+
+// Add to existing init function
+const originalInit = init;
+init = function() {
+  originalInit();
+  setInterval(updateMatchCountdown, 1000);
+  updateMatchCountdown();
 };
 </script>
 
