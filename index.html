@@ -883,6 +883,98 @@
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
   
+  
+    /* Auto-generated */
+    .standings-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .standings-header {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .standings-table th {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-bottom: 12px;
+      font-weight: 600;
+    }
+    
+    .standings-table th:first-child,
+    .standings-table td:first-child {
+      text-align: left;
+      width: 30px;
+    }
+    
+    .standings-table th:nth-child(2),
+    .standings-table td:nth-child(2) {
+      text-align: left;
+      width: 40px;
+    }
+    
+    .standings-table th:nth-child(3),
+    .standings-table td:nth-child(3) {
+      text-align: left;
+      flex: 1;
+    }
+    
+    .standings-table th:nth-child(n+4),
+    .standings-table td:nth-child(n+4) {
+      text-align: center;
+      width: 25px;
+    }
+    
+    .standings-table td {
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .standings-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .standings-table tr.qualified {
+      background: linear-gradient(90deg, var(--accent-gold-dim) 0%, transparent 100%);
+      border-left: 3px solid var(--accent-gold);
+    }
+    
+    .standings-table tr.qualified td:first-child {
+      padding-left: 8px;
+    }
+    
+    .standings-rank {
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .standings-flag {
+      font-size: 18px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .standings-team {
+      font-weight: 600;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -925,6 +1017,67 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <!-- Group Standings -->
+<div class="section-label">Group C Standings</div>
+<div class="standings-card">
+  <table class="standings-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th></th>
+        <th>Team</th>
+        <th>P</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="qualified">
+        <td><span class="standings-rank">1</span></td>
+        <td><span class="standings-flag">🇧🇷</span></td>
+        <td class="standings-team">Brazil</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+        <td>0</td>
+        <td>7</td>
+      </tr>
+      <tr class="qualified">
+        <td><span class="standings-rank">2</span></td>
+        <td><span class="standings-flag">🇲🇦</span></td>
+        <td class="standings-team">Morocco</td>
+        <td>3</td>
+        <td>2</td>
+        <td>0</td>
+        <td>1</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><span class="standings-rank">3</span></td>
+        <td><span class="standings-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></td>
+        <td class="standings-team">Scotland</td>
+        <td>3</td>
+        <td>1</td>
+        <td>0</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td><span class="standings-rank">4</span></td>
+        <td><span class="standings-flag">🇭🇹</span></td>
+        <td class="standings-team">Haiti</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
