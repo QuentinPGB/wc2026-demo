@@ -846,6 +846,79 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
+  
+    /* Auto-generated */
+    .group-standings {
+      margin-bottom: 24px;
+    }
+    
+    .standings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .standings-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .standings-group {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    
+    .standings-table {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    
+    .standings-row {
+      display: grid;
+      grid-template-columns: 28px 1fr 36px 28px 28px 28px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .standings-row:last-child {
+      border-bottom: none;
+    }
+    
+    .standings-row.leader {
+      background: linear-gradient(90deg, var(--accent-gold-dim), transparent);
+      border-radius: var(--radius-sm);
+      margin: -4px -8px;
+      padding: 14px 8px;
+    }
+    
+    .standings-flag {
+      font-size: 18px;
+    }
+    
+    .standings-team {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .standings-stat {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+    }
+    
+    .standings-points {
+      color: var(--accent-gold);
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -887,6 +960,50 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="section-label">Group Standings</div>
+<div class="card group-standings">
+  <div class="card-pad">
+    <div class="standings-header">
+      <div class="standings-title">Group C</div>
+      <div class="standings-group">After 2 games</div>
+    </div>
+    <div class="standings-table">
+      <div class="standings-row leader">
+        <div class="standings-flag">🇧🇷</div>
+        <div class="standings-team">Brazil</div>
+        <div class="standings-stat standings-points">7</div>
+        <div class="standings-stat">2</div>
+        <div class="standings-stat">1</div>
+        <div class="standings-stat">0</div>
+      </div>
+      <div class="standings-row">
+        <div class="standings-flag">🇲🇦</div>
+        <div class="standings-team">Morocco</div>
+        <div class="standings-stat standings-points">4</div>
+        <div class="standings-stat">1</div>
+        <div class="standings-stat">1</div>
+        <div class="standings-stat">1</div>
+      </div>
+      <div class="standings-row">
+        <div class="standings-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+        <div class="standings-team">Scotland</div>
+        <div class="standings-stat standings-points">3</div>
+        <div class="standings-stat">1</div>
+        <div class="standings-stat">0</div>
+        <div class="standings-stat">2</div>
+      </div>
+      <div class="standings-row">
+        <div class="standings-flag">🇭🇹</div>
+        <div class="standings-team">Haiti</div>
+        <div class="standings-stat standings-points">1</div>
+        <div class="standings-stat">0</div>
+        <div class="standings-stat">1</div>
+        <div class="standings-stat">2</div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
