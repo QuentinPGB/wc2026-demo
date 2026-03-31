@@ -883,6 +883,73 @@
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
   
+  
+    /* Auto-generated */
+    .group-standings {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .group-standings-header {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .standings-row {
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s ease;
+    }
+    
+    .standings-row:last-child {
+      border-bottom: none;
+    }
+    
+    .standings-row.qualified {
+      background: var(--accent-gold-dim);
+      border-left: 3px solid var(--accent-gold);
+    }
+    
+    .standings-cell {
+      padding: 10px 6px;
+      color: var(--text);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    
+    .standings-cell.rank {
+      width: 28px;
+      text-align: center;
+      font-weight: 700;
+      font-family: var(--font);
+    }
+    
+    .standings-cell.flag {
+      width: 32px;
+      text-align: center;
+      font-size: 16px;
+    }
+    
+    .standings-cell.team {
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    .standings-cell.stat {
+      width: 32px;
+      text-align: center;
+      font-weight: 600;
+      font-family: var(--font);
+    }
   </style>
 </head>
 <body>
@@ -925,6 +992,52 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="section-label">Group C Standings</div>
+<div class="group-standings">
+  <table class="standings-table">
+    <tr class="standings-row qualified">
+      <td class="standings-cell rank">1</td>
+      <td class="standings-cell flag">🇧🇷</td>
+      <td class="standings-cell team">Brazil</td>
+      <td class="standings-cell stat">3</td>
+      <td class="standings-cell stat">2</td>
+      <td class="standings-cell stat">1</td>
+      <td class="standings-cell stat">0</td>
+      <td class="standings-cell stat">7</td>
+    </tr>
+    <tr class="standings-row qualified">
+      <td class="standings-cell rank">2</td>
+      <td class="standings-cell flag">🇲🇦</td>
+      <td class="standings-cell team">Morocco</td>
+      <td class="standings-cell stat">3</td>
+      <td class="standings-cell stat">2</td>
+      <td class="standings-cell stat">0</td>
+      <td class="standings-cell stat">1</td>
+      <td class="standings-cell stat">6</td>
+    </tr>
+    <tr class="standings-row">
+      <td class="standings-cell rank">3</td>
+      <td class="standings-cell flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</td>
+      <td class="standings-cell team">Scotland</td>
+      <td class="standings-cell stat">3</td>
+      <td class="standings-cell stat">1</td>
+      <td class="standings-cell stat">0</td>
+      <td class="standings-cell stat">2</td>
+      <td class="standings-cell stat">3</td>
+    </tr>
+    <tr class="standings-row">
+      <td class="standings-cell rank">4</td>
+      <td class="standings-cell flag">🇭🇹</td>
+      <td class="standings-cell team">Haiti</td>
+      <td class="standings-cell stat">3</td>
+      <td class="standings-cell stat">0</td>
+      <td class="standings-cell stat">1</td>
+      <td class="standings-cell stat">2</td>
+      <td class="standings-cell stat">1</td>
+    </tr>
+  </table>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
