@@ -846,57 +846,6 @@
     .profile-activity-result { font-size: 14px; font-weight: 700; }
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
-  
-    /* Auto-generated */
-    .match-countdown {
-      background: linear-gradient(135deg, var(--accent-gold), #e8c65a);
-      border-radius: var(--radius);
-      padding: 20px 16px;
-      margin: 0 0 24px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(212,168,67,0.2);
-    }
-    
-    .countdown-title {
-      font-family: var(--font);
-      font-size: 12px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .countdown-display {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-    }
-    
-    .countdown-unit {
-      background: rgba(0,0,0,0.8);
-      border-radius: var(--radius-xs);
-      padding: 10px 12px;
-      min-width: 50px;
-    }
-    
-    .countdown-value {
-      font-family: var(--font);
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      display: block;
-      line-height: 1;
-    }
-    
-    .countdown-label {
-      font-size: 10px;
-      color: var(--text-secondary);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-    }
   </style>
 </head>
 <body>
@@ -938,28 +887,6 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
-
-    <div class="match-countdown">
-  <div class="countdown-title">Next Match Starts In</div>
-  <div class="countdown-display">
-    <div class="countdown-unit">
-      <span class="countdown-value" id="countdown-days">0</span>
-      <div class="countdown-label">Days</div>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-value" id="countdown-hours">0</span>
-      <div class="countdown-label">Hrs</div>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-value" id="countdown-mins">0</span>
-      <div class="countdown-label">Min</div>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-value" id="countdown-secs">0</span>
-      <div class="countdown-label">Sec</div>
-    </div>
-  </div>
-</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
@@ -1643,50 +1570,6 @@ function init() {
 }
 
 init();
-
-// Auto-generated
-function updateMatchCountdown() {
-  const nextMatch = APP.todayMatches[0];
-  if (!nextMatch) return;
-  
-  const today = new Date();
-  const matchTime = nextMatch.time.split(':');
-  const matchDate = new Date(today);
-  matchDate.setHours(parseInt(matchTime[0]), parseInt(matchTime[1]), 0, 0);
-  
-  if (matchDate < today) {
-    matchDate.setDate(matchDate.getDate() + 1);
-  }
-  
-  const timeDiff = matchDate.getTime() - today.getTime();
-  
-  if (timeDiff > 0) {
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-    
-    document.getElementById('countdown-days').textContent = days;
-    document.getElementById('countdown-hours').textContent = hours;
-    document.getElementById('countdown-mins').textContent = minutes;
-    document.getElementById('countdown-secs').textContent = seconds;
-  }
-}
-
-// Add to init function
-function init() {
-  renderMatches();
-  renderLbPreview();
-  renderQuizMatchesPreview();
-  renderLeaderboard();
-  renderBadges();
-  renderActivity();
-  updateCountdown();
-  
-  // Start match countdown
-  setInterval(updateMatchCountdown, 1000);
-  updateMatchCountdown();
-}
 </script>
 
 </body>
