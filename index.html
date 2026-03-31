@@ -386,14 +386,6 @@
       font-weight: 600;
     }
     .quiz-overview-stat strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 2px; }
-    .quiz-countdown {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--accent-gold);
-      margin: 16px 0;
-      letter-spacing: 1px;
-    }
-    .quiz-countdown-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
     .btn-start-quiz {
       display: block;
       width: 100%;
@@ -891,137 +883,6 @@
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
   
-    /* Auto-generated */
-    .group-standings {
-      margin-bottom: 24px;
-    }
-    
-    .standings-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    
-    .standings-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    
-    .standings-group {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    
-    .standings-table {
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 16px;
-    }
-    
-    .standings-row {
-      display: grid;
-      grid-template-columns: 28px 1fr 36px 28px 28px 28px;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-light);
-    }
-    
-    .standings-row:last-child {
-      border-bottom: none;
-    }
-    
-    .standings-row.leader {
-      background: linear-gradient(90deg, var(--accent-gold-dim), transparent);
-      border-radius: var(--radius-sm);
-      margin: -4px -8px;
-      padding: 14px 8px;
-    }
-    
-    .standings-flag {
-      font-size: 18px;
-    }
-    
-    .standings-team {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    
-    .standings-stat {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      text-align: center;
-    }
-    
-    .standings-points {
-      color: var(--accent-gold);
-      font-size: 14px;
-    }
-  
-    /* Auto-generated */
-    .quiz-mascot {
-      position: relative;
-      text-align: center;
-      margin: 20px 0;
-    }
-    
-    .quiz-mascot-icon {
-      font-size: 32px;
-      cursor: pointer;
-      display: inline-block;
-      transition: transform 0.2s ease;
-      user-select: none;
-    }
-    
-    .quiz-mascot-icon:hover {
-      transform: scale(1.1);
-    }
-    
-    .quiz-mascot-icon:active {
-      transform: scale(0.95);
-    }
-    
-    .quiz-hint-popup {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      color: var(--text);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.4;
-      max-width: 280px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 100;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .quiz-hint-popup.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(-5px);
-    }
-    
-    .quiz-hint-popup::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 8px solid transparent;
-      border-top-color: var(--card-bg);
-    }
   </style>
 </head>
 <body>
@@ -1065,55 +926,6 @@
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
 
-    <div class="section-label">Group Standings</div>
-<div class="card group-standings">
-  <div class="card-pad">
-    <div class="standings-header">
-      <div class="standings-title">Group C</div>
-      <div class="standings-group">After 2 games</div>
-    </div>
-    <div class="standings-table">
-      <div class="standings-row leader">
-        <div class="standings-flag">🇧🇷</div>
-        <div class="standings-team">Brazil</div>
-        <div class="standings-stat standings-points">7</div>
-        <div class="standings-stat">2</div>
-        <div class="standings-stat">1</div>
-        <div class="standings-stat">0</div>
-      </div>
-      <div class="standings-row">
-        <div class="standings-flag">🇲🇦</div>
-        <div class="standings-team">Morocco</div>
-        <div class="standings-stat standings-points">4</div>
-        <div class="standings-stat">1</div>
-        <div class="standings-stat">1</div>
-        <div class="standings-stat">1</div>
-      </div>
-      <div class="standings-row">
-        <div class="standings-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
-        <div class="standings-team">Scotland</div>
-        <div class="standings-stat standings-points">3</div>
-        <div class="standings-stat">1</div>
-        <div class="standings-stat">0</div>
-        <div class="standings-stat">2</div>
-      </div>
-      <div class="standings-row">
-        <div class="standings-flag">🇭🇹</div>
-        <div class="standings-team">Haiti</div>
-        <div class="standings-stat standings-points">1</div>
-        <div class="standings-stat">0</div>
-        <div class="standings-stat">1</div>
-        <div class="standings-stat">2</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <div class="quiz-mascot">
-  <div class="quiz-mascot-icon" onclick="showQuizHint()">⚽</div>
-  <div class="quiz-hint-popup" id="quiz-hint-popup"></div>
-</div>
-
     <!-- Quick Stats -->
     <div class="quick-stats">
       <div class="stat-pill">
@@ -1156,8 +968,6 @@
         <div class="quiz-overview-stat"><strong>3</strong> Matches</div>
         <div class="quiz-overview-stat"><strong>3,500</strong> Max Jewels</div>
       </div>
-      <div class="quiz-countdown-label">CLOSES AT KICK-OFF</div>
-      <div class="quiz-countdown" id="quiz-countdown">2h 14m</div>
       <button class="btn-start-quiz" onclick="startQuiz()">Start Quiz ⚡</button>
     </div>
 
@@ -1769,21 +1579,6 @@ function renderActivity() {
   `).join('');
 }
 
-// ===== COUNTDOWN =====
-function updateCountdown() {
-  // Mock countdown that ticks down
-  const el = document.getElementById('quiz-countdown');
-  if (!el) return;
-  let mins = 134; // 2h14m
-  setInterval(() => {
-    mins--;
-    if (mins < 0) mins = 0;
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    el.textContent = `${h}h ${String(m).padStart(2, '0')}m`;
-  }, 60000);
-}
-
 // ===== INIT =====
 function init() {
   renderMatches();
@@ -1792,161 +1587,9 @@ function init() {
   renderLeaderboard();
   renderBadges();
   renderActivity();
-  updateCountdown();
 }
 
 init();
-
-// Auto-generated
-// Add hint functionality
-let hintTimeout;
-
-function showQuizHint() {
-  const currentQuestion = APP.quizQuestions[quizIndex];
-  if (!currentQuestion || !currentQuestion.tip) return;
-  
-  const popup = document.getElementById('quiz-hint-popup');
-  if (!popup) return;
-  
-  popup.textContent = currentQuestion.tip;
-  popup.classList.add('show');
-  
-  // Clear any existing timeout
-  if (hintTimeout) {
-    clearTimeout(hintTimeout);
-  }
-  
-  // Auto-hide after 2 seconds
-  hintTimeout = setTimeout(() => {
-    popup.classList.remove('show');
-  }, 2000);
-}
-
-// Modify renderQuizQuestion function to include mascot HTML
-function renderQuizQuestion() {
-  const q = APP.quizQuestions[quizIndex];
-  const step = document.getElementById('qa-step');
-  const progress = document.getElementById('qa-progress');
-  const body = document.getElementById('qa-body');
-  const btnBack = document.getElementById('qa-btn-back');
-  const btnNext = document.getElementById('qa-btn-next');
-  const jewelsEl = document.getElementById('qa-jewels');
-
-  step.textContent = `${quizIndex + 1}
-/ ${APP.quizQuestions.length}`;
-  progress.style.width = `${((quizIndex + 1) / APP.quizQuestions.length) * 100}%`;
-  btnBack.style.display = quizIndex === 0 ? 'none' : 'inline-block';
-
-  // Total potential jewels
-  let totalJewels = 0;
-  quizAnswers.forEach((a, i) => {
-    const qq = APP.quizQuestions[i];
-    if (a !== null && qq.answers) {
-      totalJewels += qq.answers[a]?.jewels || 0;
-    }
-else if (qq.type === 'score') {
-      totalJewels += 2000;
-    }
-else if (qq.type === 'slider') {
-      totalJewels += 1500;
-    }
-  });
-  jewelsEl.textContent = totalJewels.toLocaleString();
-
-  // Is last question?
-  const isLast = quizIndex === APP.quizQuestions.length - 1;
-  btnNext.textContent = isLast ? 'Submit ✓' : 'Continue';
-  btnNext.className = `btn-qa ${isLast ? 'btn-qa-submit' : 'btn-qa-next'}`;
-
-  let html = '';
-
-  // Match strip
-  if (q.matchHome) {
-    const home = APP.teams[q.matchHome];
-    const away = APP.teams[q.matchAway];
-    html += `
-      <div class="qa-match-strip">
-        <span class="flag">${home.flag}</span>
-        <span>${q.matchHome}</span>
-        <span style="color: var(--text-muted);
-font-weight: 500;">vs</span>
-        <span>${q.matchAway}</span>
-        <span class="flag">${away.flag}</span>
-      </div>
-      <div class="qa-match-meta">${q.matchTime}</div>
-    `;
-  }
-
-  // Badge
-  html += `<span class="qa-type-badge ${q.badge}">${q.badge}</span>`;
-
-  // Question
-  html += `<div class="qa-question">${q.question}</div>`;
-  html += `<div class="qa-desc">${q.desc}</div>`;
-
-  // Answer type
-  if (q.type === 'mc2' || q.type === 'mc3' || q.type === 'mc4') {
-    const cols = q.type === 'mc2' ? 'cols-2' : q.type === 'mc3' ? 'cols-3' : 'cols-4';
-    html += `<div class="qa-grid ${cols}">`;
-    q.answers.forEach((a, i) => {
-      const selected = quizAnswers[quizIndex] === i ? 'selected' : '';
-      html += `
-        <div class="qa-answer ${selected}" onclick="selectQuizAnswer(${i})">
-          <span class="qa-answer-icon">${a.icon}</span>
-          <div class="qa-answer-label">${a.label}</div>
-          <div class="qa-answer-jewels">◈ ${a.jewels}</div>
-        </div>
-      `;
-    });
-    html += '</div>';
-  }
-else if (q.type === 'score') {
-    const home = APP.teams[q.matchHome];
-    const away = APP.teams[q.matchAway];
-    html += `
-      <div class="qa-score-wrap">
-        <div class="qa-score-team">
-          <span class="flag">${home.flag}</span>
-          <span class="name">${q.matchHome}</span>
-        </div>
-        <input type="number" class="qa-score-input" id="score-home" min="0" max="9" value="" placeholder="0">
-        <span class="qa-score-dash">—</span>
-        <input type="number" class="qa-score-input" id="score-away" min="0" max="9" value="" placeholder="0">
-        <div class="qa-score-team">
-          <span class="flag">${away.flag}</span>
-          <span class="name">${q.matchAway}</span>
-        </div>
-      </div>
-      <div class="qa-score-payout">${q.payoutInfo}</div>
-    `;
-  }
-else if (q.type === 'slider') {
-    html += `
-      <div class="qa-slider-wrap">
-        <div class="qa-slider-value" id="slider-display">${sliderValue}</div>
-        <div class="qa-slider-labels">
-          <span>${q.sliderMin}
-goals</span>
-          <span>${q.sliderMax}
-goals</span>
-        </div>
-        <input type="range" min="${q.sliderMin}" max="${q.sliderMax}" value="${sliderValue}" oninput="updateSlider(this.value)">
-        <div class="qa-slider-payout">${q.payoutInfo}</div>
-      </div>
-    `;
-  }
-
-  // Add mascot
-  html += `
-    <div class="quiz-mascot">
-      <div class="quiz-mascot-icon" onclick="showQuizHint()">⚽</div>
-      <div class="quiz-hint-popup" id="quiz-hint-popup"></div>
-    </div>
-  `;
-
-  body.innerHTML = html;
-  body.scrollTop = 0;
-}
 </script>
 
 </div><!-- /phone-frame -->
