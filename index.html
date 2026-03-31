@@ -1947,6 +1947,133 @@ goals</span>
   body.innerHTML = html;
   body.scrollTop = 0;
 }
+
+// Auto-generated
+// Modify renderQuizQuestion function to include mascot HTML
+function renderQuizQuestion() {
+  const q = APP.quizQuestions[quizIndex];
+  const step = document.getElementById('qa-step');
+  const progress = document.getElementById('qa-progress');
+  const body = document.getElementById('qa-body');
+  const btnBack = document.getElementById('qa-btn-back');
+  const btnNext = document.getElementById('qa-btn-next');
+  const jewelsEl = document.getElementById('qa-jewels');
+
+  step.textContent = `${quizIndex + 1}
+/ ${APP.quizQuestions.length}`;
+  progress.style.width = `${((quizIndex + 1) / APP.quizQuestions.length) * 100}%`;
+  btnBack.style.display = quizIndex === 0 ? 'none' : 'inline-block';
+
+  // Total potential jewels
+  let totalJewels = 0;
+  quizAnswers.forEach((a, i) => {
+    const qq = APP.quizQuestions[i];
+    if (a !== null && qq.answers) {
+      totalJewels += qq.answers[a]?.jewels || 0;
+    }
+else if (qq.type === 'score') {
+      totalJewels += 2000;
+    }
+else if (qq.type === 'slider') {
+      totalJewels += 1500;
+    }
+  });
+  jewelsEl.textContent = totalJewels.toLocaleString();
+
+  // Is last question?
+  const isLast = quizIndex === APP.quizQuestions.length - 1;
+  btnNext.textContent = isLast ? 'Submit ✓' : 'Continue';
+  btnNext.className = `btn-qa ${isLast ? 'btn-qa-submit' : 'btn-qa-next'}`;
+
+  let html = '';
+
+  // Match strip
+  if (q.matchHome) {
+    const home = APP.teams[q.matchHome];
+    const away = APP.teams[q.matchAway];
+    html += `
+      <div class="qa-match-strip">
+        <span class="flag">${home.flag}</span>
+        <span>${q.matchHome}</span>
+        <span style="color: var(--text-muted);
+font-weight: 500;">vs</span>
+        <span>${q.matchAway}</span>
+        <span class="flag">${away.flag}</span>
+      </div>
+      <div class="qa-match-meta">${q.matchTime}</div>
+    `;
+  }
+
+  // Badge
+  html += `<span class="qa-type-badge ${q.badge}">${q.badge}</span>`;
+
+  // Question
+  html += `<div class="qa-question">${q.question}</div>`;
+  html += `<div class="qa-desc">${q.desc}</div>`;
+
+  // Answer type
+  if (q.type === 'mc2' || q.type === 'mc3' || q.type === 'mc4') {
+    const cols = q.type === 'mc2' ? 'cols-2' : q.type === 'mc3' ? 'cols-3' : 'cols-4';
+    html += `<div class="qa-grid ${cols}">`;
+    q.answers.forEach((a, i) => {
+      const selected = quizAnswers[quizIndex] === i ? 'selected' : '';
+      html += `
+        <div class="qa-answer ${selected}" onclick="selectQuizAnswer(${i})">
+          <span class="qa-answer-icon">${a.icon}</span>
+          <div class="qa-answer-label">${a.label}</div>
+          <div class="qa-answer-jewels">◈ ${a.jewels}</div>
+        </div>
+      `;
+    });
+    html += '</div>';
+  }
+else if (q.type === 'score') {
+    const home = APP.teams[q.matchHome];
+    const away = APP.teams[q.matchAway];
+    html += `
+      <div class="qa-score-wrap">
+        <div class="qa-score-team">
+          <span class="flag">${home.flag}</span>
+          <span class="name">${q.matchHome}</span>
+        </div>
+        <input type="number" class="qa-score-input" id="score-home" min="0" max="9" value="" placeholder="0">
+        <span class="qa-score-dash">—</span>
+        <input type="number" class="qa-score-input" id="score-away" min="0" max="9" value="" placeholder="0">
+        <div class="qa-score-team">
+          <span class="flag">${away.flag}</span>
+          <span class="name">${q.matchAway}</span>
+        </div>
+      </div>
+      <div class="qa-score-payout">${q.payoutInfo}</div>
+    `;
+  }
+else if (q.type === 'slider') {
+    html += `
+      <div class="qa-slider-wrap">
+        <div class="qa-slider-value" id="slider-display">${sliderValue}</div>
+        <div class="qa-slider-labels">
+          <span>${q.sliderMin}
+goals</span>
+          <span>${q.sliderMax}
+goals</span>
+        </div>
+        <input type="range" min="${q.sliderMin}" max="${q.sliderMax}" value="${sliderValue}" oninput="updateSlider(this.value)">
+        <div class="qa-slider-payout">${q.payoutInfo}</div>
+      </div>
+    `;
+  }
+
+  // Add mascot
+  html += `
+    <div class="quiz-mascot">
+      <div class="quiz-mascot-icon" onclick="showQuizHint()">⚽</div>
+      <div class="quiz-hint-popup" id="quiz-hint-popup"></div>
+    </div>
+  `;
+
+  body.innerHTML = html;
+  body.scrollTop = 0;
+}
 </script>
 
 </div><!-- /phone-frame -->
