@@ -883,6 +883,132 @@
     .profile-activity-result.correct { color: var(--green); }
     .profile-activity-result.wrong { color: var(--danger); }
   
+  
+    /* Auto-generated */
+    .group-standings {
+          
+      margin-bottom: 24px;
+          
+    }
+    .standings-header {
+          
+      display: flex;
+          
+      align-items: center;
+          
+      gap: 8px;
+          
+      margin-bottom: 12px;
+          
+    }
+    .standings-icon {
+          
+      font-size: 18px;
+          
+    }
+    .standings-title {
+          
+      font-size: 16px;
+          
+      font-weight: 600;
+          
+      color: var(--text);
+          
+    }
+    .standings-table {
+          
+      background: var(--card-bg);
+          
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+          
+      overflow: hidden;
+          
+    }
+    .standings-row {
+          
+      display: grid;
+          
+      grid-template-columns: 40px 1fr 50px 80px;
+          
+      align-items: center;
+          
+      padding: 12px 16px;
+          
+      border-bottom: 1px solid var(--border-light);
+          
+    }
+    .standings-row:last-child {
+          
+      border-bottom: none;
+          
+    }
+    .standings-row.leader {
+          
+      background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+          
+    }
+    .standings-pos {
+          
+      font-size: 14px;
+          
+      font-weight: 600;
+          
+      color: var(--text-secondary);
+          
+      width: 24px;
+          
+      text-align: center;
+          
+    }
+    .standings-team {
+          
+      display: flex;
+          
+      align-items: center;
+          
+      gap: 8px;
+          
+    }
+    .standings-flag {
+          
+      font-size: 16px;
+          
+    }
+    .standings-name {
+          
+      font-size: 14px;
+          
+      font-weight: 500;
+          
+      color: var(--text);
+          
+    }
+    .standings-pts {
+          
+      font-size: 14px;
+          
+      font-weight: 700;
+          
+      color: var(--accent-gold);
+          
+    }
+    .standings-record {
+          
+      font-size: 12px;
+          
+      color: var(--text-secondary);
+          
+      text-align: right;
+          
+    }
+    .standings-row.leader .standings-pts {
+          
+      color: var(--accent-gold);
+          
+      text-shadow: 0 0 8px rgba(212,168,67,0.3);
+          
+    }
   </style>
 </head>
 <body>
@@ -925,6 +1051,48 @@
     <!-- Today's Matches -->
     <div class="section-label">Today's Matches</div>
     <div id="matches-container"></div>
+
+    <div class="section-label">Group C Standings</div>
+<div class="group-standings">
+  <div class="standings-table">
+    <div class="standings-row leader">
+      <div class="standings-pos">1</div>
+      <div class="standings-team">
+        <div class="standings-flag">🇧🇷</div>
+        <div class="standings-name">Brazil</div>
+      </div>
+      <div class="standings-pts">7</div>
+      <div class="standings-record">2-1-0</div>
+    </div>
+    <div class="standings-row">
+      <div class="standings-pos">2</div>
+      <div class="standings-team">
+        <div class="standings-flag">🇲🇦</div>
+        <div class="standings-name">Morocco</div>
+      </div>
+      <div class="standings-pts">4</div>
+      <div class="standings-record">1-1-1</div>
+    </div>
+    <div class="standings-row">
+      <div class="standings-pos">3</div>
+      <div class="standings-team">
+        <div class="standings-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+        <div class="standings-name">Scotland</div>
+      </div>
+      <div class="standings-pts">2</div>
+      <div class="standings-record">0-2-1</div>
+    </div>
+    <div class="standings-row">
+      <div class="standings-pos">4</div>
+      <div class="standings-team">
+        <div class="standings-flag">🇭🇹</div>
+        <div class="standings-name">Haiti</div>
+      </div>
+      <div class="standings-pts">1</div>
+      <div class="standings-record">0-1-2</div>
+    </div>
+  </div>
+</div>
 
     <!-- Quick Stats -->
     <div class="quick-stats">
